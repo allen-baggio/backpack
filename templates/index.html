@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-fde233.css" media="all" /> !-->
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <table class="container" width=100%>
+            <td width=20%>
+                <h1 id="logo">My Backpacks</h1>
+            </td>
+            <td width=60%>
+                <div class="search">
+                <form method="get" action="/k">
+                    <input id="quick-search" name="q" type="text" autocomplete="off" placeholder="搜索 股票/讨论/用户/群组" class="typeahead"></form>
+                <span class="icon"><i></i></span></div>
+            </td>
+            <td width=5%>
+                <div><a href="/account/reg" class="reg">注册</a></div>
+            </td>
+            <td width=5%>
+                <div><a href="/" class="login">登录</a></div>
+            </td>
+            <td></td>
+            </table>
+        </div>
+    </div>
+</div>
+<p>This is a paragraph.</p>
+{% load staticfiles %}
+<img src={% static "test.jpg" %} width="54px" height="30px">
+
+</body>
+</html>
