@@ -2,6 +2,15 @@
 <html>
 <head>
     <!-- <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-fde233.css" media="all" /> !-->
+    <style>
+        .navbar {
+            background-color: yellow;
+        }
+        .content {
+            margin: 50px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <div class="navbar navbar-fixed-top">
@@ -13,23 +22,39 @@
             <td width=60%>
                 <div class="search">
                 <form method="get" action="/k">
-                    <input id="quick-search" name="q" type="text" autocomplete="off" placeholder="搜索 股票/讨论/用户/群组" class="typeahead"></form>
+                    <input id="quick-search" name="q" type="text" autocomplete="off" placeholder="搜索 inventory" class="typeahead"></form>
                 <span class="icon"><i></i></span></div>
             </td>
-            <td width=5%>
-                <div><a href="/account/reg" class="reg">注册</a></div>
-            </td>
-            <td width=5%>
-                <div><a href="/" class="login">登录</a></div>
-            </td>
-            <td></td>
+            {% if name %}
+                <td width=10%>Welcome {{ name }}</td>
+                <td width=5%>
+                    <div><a href="/account/logout" class="login">Logout</a></div>
+                </td>
+            {% else %}
+                <td width=5%>
+                    <div><a href="/account/login" class="reg">注册</a></div>
+                </td>
+                <td width=5%>
+                    <div><a href="/account/login" class="login">登录</a></div>
+                </td>
+                <td></td>
+            {% endif %}
             </table>
         </div>
     </div>
 </div>
-<p>This is a paragraph.</p>
-{% load staticfiles %}
-<img src={% static "test.jpg" %} width="54px" height="30px">
+<div class="content">
+    {% if name %}
+        <table width=100%>
+            <tr>
+                <td>Wanna make a request? <a href="request/load" >click here</a></td>
+                <td>Wanna submit an itinerary? <a href="itinerary" >click here</a></td>
+            </tr>
+        </table>
+    {% else %}
+        <image src ={{ staticfile }} 'test.jpg' />
+    {% endif %}
 
+</div>
 </body>
 </html>

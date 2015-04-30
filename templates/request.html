@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-fde233.css" media="all" /> !-->
+    <style>
+        .navbar {
+            background-color: yellow;
+        }
+        .content {
+            margin: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <table class="container" width=100%>
+            <td width=20%>
+                <h1 id="logo">My Backpacks</h1>
+            </td>
+            <td width=60%>
+                <div class="search">
+                <form method="get" action="/k">
+                    <input id="quick-search" name="q" type="text" autocomplete="off" placeholder="搜索 inventory" class="typeahead"></form>
+                <span class="icon"><i></i></span></div>
+            </td>
+            {% if name %}
+                <td width=10%>Welcome {{ name }}</td>
+                <td width=5%>
+                    <div><a href="/account/logout" class="login">Logout</a></div>
+                </td>
+            {% else %}
+                <td width=5%>
+                    <div><a href="/account/login" class="reg">注册</a></div>
+                </td>
+                <td width=5%>
+                    <div><a href="/account/login" class="login">登录</a></div>
+                </td>
+                <td></td>
+            {% endif %}
+            </table>
+        </div>
+    </div>
+</div>
+<div class="content">
+
+    {% if request_created %}
+        <div class="confirmation">
+            <p>You have submitted a request. We will contact you when your request in taken.</p>
+            <p><a href="/">click here to return home</a></p>
+        </div>
+    {% else %}
+        <form action="/request/create", method="POST">
+            {% csrf_token %}
+            <table width=100% height="80%">
+                <tr>
+                    <th colspan="4">Basic information of the request </th>
+                </tr>
+                <tr>
+                    <td>Type:</td>
+                    <td>
+                        <select name="item_type">
+                          <option value="0">Price</option>
+                          <option value="1">Availability</option>
+                        </select>
+                    </td>
+                    <td>Name:</td>
+                    <td>
+                        <input type="text" name="item_name" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Quantity:</td>
+                    <td>
+                        <select name="item_quantity">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                        </select>
+                    </td>
+                    <td>Country/Region:</td>
+                    <td>
+                        <input type="text" name="item_country" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4"><button type="submit">Submit</button></td>
+                </tr>
+            </table>
+        </form>
+    {% endif %}
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-fde233.css" media="all" /> !-->
+    <style>
+        .navbar {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <table class="container" width=100%>
+            <td width=20%>
+                <h1 id="logo">My Backpacks</h1>
+            </td>
+            <td width=60%>
+                <div class="search">
+                <form method="get" action="/k">
+                    <input id="quick-search" name="q" type="text" autocomplete="off" placeholder="搜索 股票/讨论/用户/群组" class="typeahead"></form>
+                <span class="icon"><i></i></span></div>
+            </td>
+            <td width=5%>
+                <div><a href="/account/reg" class="reg">注册</a></div>
+            </td>
+            <td width=5%>
+                <div><a href="/" class="login">登录</a></div>
+            </td>
+            <td></td>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <table style="width:100%;border-spacing: 50px;">
+        <td>
+            <form action="/account/auth" method="POST">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <td><h1>Login</h1></td>
+                    </tr>
+                    {% if error %}
+                        <tr>
+                            <td>Your username or password is incorrect.</td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <td><input name="username" type="text" placeholder="Your Username" /></td>
+                    </tr>
+                    <tr>
+                        <td><input name="password" type="password" placeholder="Your Password" /></td>
+                    </tr>
+                    <tr>
+                        <td><button type="submit">Submit</button></td>
+                    </tr>
+
+                </table>
+            </form>
+        </td>
+        <td>
+            <form action="/account/reg" method="POST">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <td><h1>Register</h1></td>
+                    </tr>
+                    <tr>
+                        <td><input name="email" type="text" placeholder="Your Email" /></td>
+                    </tr>
+                    <tr>
+                        <td><input name="phone" type="text" placeholder="Your Phone Number" /></td>
+                    </tr>
+                    <tr>
+                        <td><input name="password" type="password" placeholder="Your Password" /></td>
+                    </tr>
+                    <tr>
+                        <td><input name="name" type="text" placeholder="Your Name" /></td>
+                    </tr>
+                    <tr>
+                        <td><button type="submit">Submit</button></td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </table>
+</div>
+
+</body>
