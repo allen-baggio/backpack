@@ -1,60 +1,184 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <!-- <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-fde233.css" media="all" /> !-->
-    <style>
-        .navbar {
-            background-color: yellow;
-        }
-        .content {
-            margin: 50px;
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <table class="container" width=100%>
-            <td width=20%>
-                <h1 id="logo">My Backpacks</h1>
-            </td>
-            <td width=60%>
-                <div class="search">
-                <form method="get" action="/k">
-                    <input id="quick-search" name="q" type="text" autocomplete="off" placeholder="搜索 inventory" class="typeahead"></form>
-                <span class="icon"><i></i></span></div>
-            </td>
-            {% if name %}
-                <td width=10%>Welcome {{ name }}</td>
-                <td width=5%>
-                    <div><a href="/account/logout" class="login">Logout</a></div>
-                </td>
-            {% else %}
-                <td width=5%>
-                    <div><a href="/account/login" class="reg">注册</a></div>
-                </td>
-                <td width=5%>
-                    <div><a href="/account/login" class="login">登录</a></div>
-                </td>
-                <td></td>
-            {% endif %}
-            </table>
+{% extends 'master.html' %}
+{% block primary %}
+
+    <div class="jumbotron">
+        <div class="container">
+            <h1>新年了 海淘起来！</h1>
+            <p>从世界各地为您扫货~</p>
+            <a href="#">了解我们如何运作</a>
         </div>
     </div>
-</div>
-<div class="content">
-    {% if name %}
-        <table width=100%>
-            <tr>
-                <td>Wanna make a request? <a href="request/load" >click here</a></td>
-                <td>Wanna submit an itinerary? <a href="itinerary" >click here</a></td>
-            </tr>
-        </table>
-    {% else %}
-        <image src ={{ staticfile }} 'test.jpg' />
-    {% endif %}
+    <div class="learn-more">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>求代购</h3>
+                    <td>我想请人游购 <a href="request/load" >点击这里</a></td>
+                </div>
+                <div class="col-md-4">
+                    <h3>发行程</h3>
+                    <td>我想为他人游购 <a href="itinerary/load" >点击这里</a></td>
+                </div>
+                <div class="col-md-4">
+                    <h3>已有热门路线</h3>
+                    {% if existing_requests or exisiting_itineraries %}
+                        <table width="100%">
+                            {% if existing_requests %}
+                                <tr>
+                                    <td>货物名称</td>
+                                    <td>货源地</td>
+                                    <td></td>
+                                </tr>
+                            {% endif %}
+                            {% for existing_request in existing_requests %}
+                                <tr>
+                                    <td>{{ existing_request.item.name }}</td>
+                                    <td>{{ existing_request.item.country }}</td>
+                                    <td><a href="/request/detail/{{ existing_request.id }}"><button type="submit">我想帮忙</button></a></td>
+                                </tr>
+                            {% endfor %}
+                            {% if existing_itineraries %}
+                                <tr><td colspan="3">*****************</td></tr>
+                                <tr>
+                                    <td>海淘地区</td>
+                                    <td>预计送货日期</td>
+                                    <td></td>
+                                </tr>
+                            {% endif %}
+                            {% for existing_itinerary in existing_itineraries %}
+                                <tr>
+                                    <td>{{ existing_itinerary.country }}</td>
+                                    <td>{{ existing_itinerary.return_date }}</td>
+                                    <td><a href="request/load"><button type="submit">我有需求</button></a></td>
+                                </tr>
+                            {% endfor %}
+                        </table>
 
-</div>
-</body>
-</html>
+                    {% else %}
+                        <p>暂时所有的请求都已经被处理了</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="neighborhood-guides">
+        <div class="container">
+            <h2> 精品路线 </h2>
+            <div class = "row">
+                <div class = "col-md-4">
+                    <div class="thumbnail">
+                        <img src="http://goo.gl/0sX3jq">
+                    </div>
+                    <div class="thumbnail">
+                        <img src="http://goo.gl/an2HXY">
+                    </div>
+                </div>
+                <div class = "col-md-4">
+                    <div class="thumbnail">
+                        <img src="http://goo.gl/Av1pac">
+                    </div>
+                    <div class="thumbnail">
+                        <img src="http://goo.gl/vw43v1">
+                    </div>
+                </div>
+                <div class = "col-md-4">
+                    <div class="thumbnail">
+                        <img src="http://goo.gl/0Kd7UO">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{#<!DOCTYPE html>#}
+{#<html>#}
+{#<head>#}
+{#    <!-- <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-fde233.css" media="all" /> !-->#}
+{#    <style>#}
+{#        .navbar {#}
+{#            background-color: yellow;#}
+{#        }#}
+{#        .content {#}
+{#            margin: 50px;#}
+{#            text-align: center;#}
+{#        }#}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{#<div class="navbar navbar-fixed-top">#}
+{#    <div class="navbar-inner">#}
+{#        <table class="container" width=100%>#}
+{#            <td width=20%>#}
+{#                <a href="/"><h1 id="logo">My Backpacks</h1></a>#}
+{#            </td>#}
+{#            <td width=60%>#}
+{#                <div class="search">#}
+{#                <form method="get" action="/search">#}
+{#                    <input id="quick-search" name="q" type="text" autocomplete="off" placeholder="搜索 inventory" class="typeahead"></form>#}
+{#                <span class="icon"><i></i></span></div>#}
+{#            </td>#}
+{#            {% if name %}#}
+{#                <td width=10%>Welcome {{ name }}</td>#}
+{#                <td width=5%>#}
+{#                    <div><a href="/account/profile">My Account</a></div>#}
+{#                </td>#}
+{#                <td width=5%>#}
+{#                    <div><a href="/account/logout" class="login">Logout</a></div>#}
+{#                </td>#}
+{##}
+{#            {% else %}#}
+{#                <td width=5%>#}
+{#                    <div><a href="/account/login" class="reg">注册</a></div>#}
+{#                </td>#}
+{#                <td width=5%>#}
+{#                    <div><a href="/account/login" class="login">登录</a></div>#}
+{#                </td>#}
+{#                <td></td>#}
+{#            {% endif %}#}
+{#            </table>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+{#<div class="content">#}
+{#    <table width=100%>#}
+{#        <tr>#}
+{#            <td>Wanna make a request? <a href="request/load" >click here</a></td>#}
+{#            <td>Wanna submit an itinerary? <a href="itinerary/load" >click here</a></td>#}
+{#        </tr>#}
+{#        <tr>#}
+{#            <td></td>#}
+{#            <td>#}
+{#                {% if existing_requests %}#}
+{#                    <table width="100%">#}
+{#                        <tr>#}
+{#                            <td colspan="2">Recent Requests</td>#}
+{#                        </tr>#}
+{##}
+{#                        {% for existing_request in existing_requests %}#}
+{#                            <tr>#}
+{#                                <td>{{ existing_request.item.name }}</td>#}
+{#                                <td>{{ existing_request.item.country }}</td>#}
+{#                                <td><a href="/request/detail/{{ existing_request.id }}"><button type="submit">Take the request</button></a></td>#}
+{#                            </tr>#}
+{#                        {% endfor %}#}
+{##}
+{#                    </table>#}
+{#                {% endif %}#}
+{#            </td>#}
+{#        </tr>#}
+{##}
+{##}
+{##}
+{##}
+{#    </table>#}
+{##}
+{#    <div><img src="/static/logo-base.png" alt></div>#}
+{##}
+{##}
+{#</div>#}
+{#</body>#}
+{#</html>#}

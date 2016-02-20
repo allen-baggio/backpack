@@ -1,0 +1,25 @@
+{% extends 'master.html' %}
+{% block primary %}
+    <div class="jumbotron">
+        {% if results %}
+            <p>Your search results</p>
+            <table width="100%">
+                <tr>
+                    <th>Name</th>
+                    <th>Country</th>
+                </tr>
+                {% for result in results %}
+                    <tr style="text-align: center">
+                        <td>{{ result.item.name }}</td>
+                        <td>{{ result.item.country }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <div>Sorry we can't find any existing result.</div>
+            <div><a href="/request/load" >Please create a new requests</a></div>
+
+        {% endif %}
+
+    </div>
+{% endblock %}

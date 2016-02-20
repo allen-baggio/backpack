@@ -1,0 +1,47 @@
+{% extends 'master.html' %}
+{% block primary %}
+    <script>
+        function confirm_order(request_id) {
+            if (!document.getElementById("take_request").checked) {
+                alert("请确认接单");
+                return;
+            }
+            if (!document.getElementById("name").value) {
+                alert("请先登录再接单");
+                return;
+            }
+            var form = document.createElement("form");
+            var token = document.createElement("div")
+            token.innerHTML = "{% csrf_token %}";
+            console.log(request_id)
+            form.setAttribute("method", "post");
+            form.setAttribute("action", "/request/assign/" + request_id);
+            form.appendChild(token);
+            document.body.appendChild(form);
+            form.submit();
+
+        }
+    </script>
+
+    <div class="jumbotron">
+        <p>具体购买信息</p>
+        <table width="100%" style="text-align: left; border-left-width:50px;">
+            <tr>
+                <th>货品名称</th>
+                <th>货源地</th>
+                <th>收货时间</th>
+            </tr>
+            <tr >
+                <td>{{ order_request.item.name }}</td>
+                <td>{{ order_request.item.country }}</td>
+                <td>一周以内</td>
+            </tr>
+        </table>
+        <div class="confirm">
+            <input type="checkbox" id="take_request" >我确认接下此单</input>
+            <input type="hidden" id="name" value="{{ name }}" />
+            <button type="submit" onclick="confirm_order('{{ order_request.id }}')">确认</button>
+        </div>
+
+    </div>
+{% endblock %}

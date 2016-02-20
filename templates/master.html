@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/shift.css" rel="stylesheet">
+        <link rel="stylesheet" href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="/static/admin/css/main.css">
+        <style>
+        .nav a {
+          color: #5a5a5a;
+          font-size: 20px;
+          font-weight: bold;
+          padding: 14px 10px;
+          text-transform: uppercase;
+        }
+
+        .nav li {
+          display: inline;
+        }
+
+        .jumbotron {
+            background-image:url('http://goo.gl/04j7Nn');
+            height: 500px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-color: #3071a9;
+            text-align: center;
+
+        }
+
+        .jumbotron .container {
+          position: relative;
+          top:100px;
+        }
+
+        .jumbotron .orders {
+
+            position: relative;
+            color: rosybrown;
+        }
+
+        .jumbotron h1 {
+          color: #fff;
+          font-size: 48px;
+          font-family: 'Shift', sans-serif;
+          font-weight: bold;
+        }
+
+        .jumbotron p {
+          font-size: 20px;
+          color: #fff;
+        }
+
+        .jumbotron .purchase {
+            color: red;
+        }
+
+        .neighborhood-guides{
+            background-color: #efefef;
+            border-bottom: 1px solid #dbdbdb;
+        }
+
+        .neighborhood-guides h2{
+            color: #393c3d;
+            font-size: 24px;
+        }
+
+        .neighborhood-guides p{
+            margin-bottom: 13px;
+            font-size: 15px;
+        }
+
+        .learn-more {
+          background-color: #f7f7f7;
+        }
+
+        .learn-more h3 {
+          font-family: 'Shift', sans-serif;
+          font-size: 18px;
+          font-weight: bold;
+        }
+
+        .learn-more a {
+          color: #00b0ff;
+        }
+    </style>
+    </head>
+
+    <body>
+        <div class="nav">
+            <li class="container">
+                <ul class="pull-left">
+                    <li><a href="/#">源地购 logo</a></li>
+                    <li>
+                        <form method="get" action="/search">
+                        <input id="quick-search" name="q" type="text" autocomplete="off" placeholder="搜索" class="typeahead">
+                        </form>
+                    </li>
+                </ul>
+                <ul class="pull-right">
+                    {% if name %}
+                        <li>欢迎 {{ name }}</li>
+                        <li><a href="/account/profile">我的账户</a></li>
+                        <li><a href="/account/logout" class="login">登出</a></li>
+                    {% else %}
+                        <li><a href="/account/login">登录</a></li>
+                        <li><a href="/account/login">注册</a></li>
+                        <li><a href="#">帮助</a></li>
+                    {% endif %}
+                </ul>
+            </li>
+        </div>
+
+        {% block primary %}{% endblock %}
+
+  </body>
+</html>

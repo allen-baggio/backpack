@@ -1,19 +1,25 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
-from home.models import Item, Request, User
-from datetime import datetime
+from home.models import Item, Request, User, Itinerary
+import datetime
+import math
 
 
 def index(request):
     session = request.session
     if session:
         name = session.get('name', None)
+    existing_requests = Request.objects.filter(status='Ordered').order_by('-created_time')[:3]
+    today = datetime.date.today()
+    existing_itineraries = Itinerary.objects.filter(return_date__gte=today).order_by('return_date')[:3]
+    print existing_itineraries
     template = loader.get_template('index.html')
     context = RequestContext(request, {
         'name': name,
-        'request_created': False
+        'request_created': False,
+        'existing_requests': existing_requests,
+        'existing_itineraries': existing_itineraries
     })
-    print 'hello'
     return HttpResponse(template.render(context))
 
 
@@ -21,9 +27,11 @@ def login(request):
     session = request.session
     if session:
         name = session.get('name', None)
+        username = session.get('username', None)
     template = loader.get_template('login.html')
     context = RequestContext(request, {
-        'name': name
+        'name': name,
+        'username': username
     })
     return HttpResponse(template.render(context))
 
@@ -32,15 +40,14 @@ def logout(request):
     session = request.session
     if session:
         session['name'] = None
+        session['username'] = None
     return HttpResponseRedirect('/')
 
 
 def authenticate(request):
     username = request.POST['username']
     password = request.POST['password']
-    print username
     user = User.objects.raw("select email, name, password from home_user where email = %s", [username])
-    print user
     if not list(user) or password != user[0].password:
         template = loader.get_template('login.html')
         context = RequestContext(request, {
@@ -64,40 +71,20 @@ def register(request):
     return HttpResponseRedirect('/')
 
 
-def load_request(request):
-    template = loader.get_template('request.html')
-    context = RequestContext(request, {
-        'name': request.session.get('name', None)
-    })
-    return HttpResponse(template.render(context))
-
-
-def create_request(request):
-
-    username = request.session['name']
-
-    item_type = request.POST.get('item_type', '0')
-    item_name = request.POST.get('item_name', '')
-    item_country = request.POST.get('item_country', '')
-    item_quantity = int(request.POST.get('item_quantity', '1'))
-    existing_item = Item.objects.filter(name=item_name, country=item_country)
-    if not existing_item:
-        item = Item(name=item_name, country=item_country,
-                type=item_type)
-        item.save()
+def search(request):
+    keyword = request.GET.get('q', None)
+    name = request.session['name']
+    if keyword:
+        items = Item.objects.filter(name__icontains=keyword)
+        item_ids = []
+        for item in items:
+            item_ids.append(item.id)
+        results = Request.objects.filter(item_id__in=item_ids)
     else:
-        item = existing_item[0]
-    now = datetime.now()
-    request_id = hash(username) + hash(now)
-    print request_id
-    order_request = Request(id=str(request_id), buyer_username=request.session['username'], item=item, quantity=item_quantity, created_time=now)
-    order_request.save()
-    template = loader.get_template('request.html')
+        results = None
+    template = loader.get_template('search.html')
     context = RequestContext(request, {
-        'name': username,
-        'item': item,
-        'request': order_request,
-        'request_created': True
+        'name': name,
+        'results': results
     })
     return HttpResponse(template.render(context))
-

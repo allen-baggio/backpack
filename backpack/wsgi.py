@@ -8,9 +8,10 @@ https://docs.djangoproject.com/en/1.8/howto/deployment/wsgi/
 """
 
 import os
+import sys
 
-from django.core.wsgi import get_wsgi_application
-
+sys.path.append("/Users/leguan/workspace/backpack/backpack/lib/python2.7/site-packages")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "backpack.settings")
 
+from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()

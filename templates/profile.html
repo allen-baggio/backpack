@@ -1,0 +1,77 @@
+{% extends 'master.html' %}
+{% block primary %}
+    <script>
+        function cancel(index, request_id) {
+            document.getElementById("open").deleteRow(index);
+            var form = document.createElement("form");
+            var token = document.createElement("div")
+            token.innerHTML = "{% csrf_token %}";
+            console.log(request_id)
+            form.setAttribute("method", "post");
+            form.setAttribute("action", "/request/cancel/" + request_id);
+            console.log(form.getAttribute("action"))
+            form.appendChild(token);
+            document.body.appendChild(form);
+            form.submit();
+
+        }
+    </script>
+    <div class="jumbotron">
+        <div class="orders">
+            {% if open_requests %}
+                <p>欢迎来到 {{ name }} 的账户</p>
+                <h2>My Open Requests</h2>
+                <table width="100%" id="open">
+                    <tr>
+                        <td>货物名称</td>
+                        <td>源购地</td>
+                    </tr>
+                    {% for open_request in open_requests %}
+                        <tr>
+                            <td>{{ open_request.item.name }}</td>
+                            <td>{{ open_request.item.country }}</td>
+                            <td><button onclick="cancel({{ forloop.counter0 }}, '{{ open_request.id }}')"> 取消我的订单 </button></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+            {% if ongoing_requests %}
+                <h2>My Ongoing Requests</h2>
+                <table width="100%">
+                    {% for ongoing_request in ongoing_requests %}
+                        <tr>
+                            <td>{{ ongoing_request.item.name }}</td>
+                            <td>{{ ongoing_request.item.country }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+            {% if completed_requests %}
+                <h2>My Completed Requests</h2>
+                <table width="100%">
+                    {% for completed_request in completed_requests %}
+                        <tr>
+                            <td>{{ completed_request.item.name }}</td>
+                            <td>{{ completed_request.item.country }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+        </div>
+        <div class="purchase">
+            {% if ongoing_purchases %}
+                <h2>我正在淘的货</h2>
+                <table width="100%">
+                    {% for ongoing_purchase in ongoing_purchases %}
+                        <tr>
+                            <td>{{ ongoing_purchase.item.name }}</td>
+                            <td>{{ ongoing_purchase.item.country }}</td>
+                            <td><a href="request/detail/{{ ongoing_purchase.id }}"><button type="submit">交货</button></a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

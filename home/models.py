@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Request(models.Model):
-    id = models.CharField(max_length=40, primary_key=True)
+    id = models.CharField(max_length=20, primary_key=True)
     buyer_username = models.CharField()
     provider_username = models.CharField()
     item = models.ForeignKey('Item')
@@ -13,7 +13,8 @@ class Request(models.Model):
         'Confirmed',
         'Shipped',
         'Delivered',
-        'Completed'
+        'Completed',
+        'Canceled'
     )
     status = models.CharField(choices=STATUS_ENUM, default='Ordered')
     delivery_time = models.DateTimeField()
@@ -43,3 +44,12 @@ class Item(models.Model):
     type = models.CharField(choices=TYPE_ENUM)
     country = models.CharField(max_length=20)
     #link = models.CharField(max_length=50)
+
+
+class Itinerary(models.Model):
+    id = models.AutoField(max_length=10, primary_key=True)
+    provider_username = models.CharField()
+    country = models.CharField(max_length=20)
+    return_date = models.DateTimeField()
+    created_time = models.DateTimeField()
+
