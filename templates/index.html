@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-md-4">
                     <h3>已有热门路线</h3>
-                    {% if existing_requests or exisiting_itineraries %}
+                    {% if existing_requests or existing_itineraries %}
                         <table width="100%">
                             {% if existing_requests %}
                                 <tr>
@@ -29,29 +29,31 @@
                                     <td>货源地</td>
                                     <td></td>
                                 </tr>
+                                {% for existing_request in existing_requests %}
+                                    <tr>
+                                        <td>{{ existing_request.item.name }}</td>
+                                        <td>{{ existing_request.item.country }}</td>
+                                        <td><a href="/request/detail/{{ existing_request.id }}"><button type="submit">我想帮忙</button></a></td>
+                                    </tr>
+                                {% endfor %}
+                            <tr><td colspan="3">*****************</td></tr>
                             {% endif %}
-                            {% for existing_request in existing_requests %}
-                                <tr>
-                                    <td>{{ existing_request.item.name }}</td>
-                                    <td>{{ existing_request.item.country }}</td>
-                                    <td><a href="/request/detail/{{ existing_request.id }}"><button type="submit">我想帮忙</button></a></td>
-                                </tr>
-                            {% endfor %}
                             {% if existing_itineraries %}
-                                <tr><td colspan="3">*****************</td></tr>
+
                                 <tr>
                                     <td>海淘地区</td>
                                     <td>预计送货日期</td>
                                     <td></td>
                                 </tr>
+
+                                {% for existing_itinerary in existing_itineraries %}
+                                    <tr>
+                                        <td>{{ existing_itinerary.country }}</td>
+                                        <td>{{ existing_itinerary.return_date }}</td>
+                                        <td><a href="request/load"><button type="submit">我有需求</button></a></td>
+                                    </tr>
+                                {% endfor %}
                             {% endif %}
-                            {% for existing_itinerary in existing_itineraries %}
-                                <tr>
-                                    <td>{{ existing_itinerary.country }}</td>
-                                    <td>{{ existing_itinerary.return_date }}</td>
-                                    <td><a href="request/load"><button type="submit">我有需求</button></a></td>
-                                </tr>
-                            {% endfor %}
                         </table>
 
                     {% else %}

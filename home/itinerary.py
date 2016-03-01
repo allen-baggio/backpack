@@ -6,6 +6,11 @@ import datetime
 
 
 def load_itinerary(request):
+    """
+    Landing page to load an itinerary
+    :param request:
+    :return:
+    """
     template = loader.get_template('itinerary.html')
     context = RequestContext(request, {
         'name': request.session.get('name', None)
@@ -14,6 +19,11 @@ def load_itinerary(request):
 
 
 def create_itinerary(request):
+    """
+    Create an itinerary for a traveller
+    :param request:
+    :return:
+    """
     if not request.session.get('username'):
         template = loader.get_template('login.html')
         context = RequestContext(request)

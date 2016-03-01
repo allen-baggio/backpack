@@ -20,7 +20,7 @@
         <div class="orders">
             {% if open_requests %}
                 <p>欢迎来到 {{ name }} 的账户</p>
-                <h2>My Open Requests</h2>
+                <h2>我的下单</h2>
                 <table width="100%" id="open">
                     <tr>
                         <td>货物名称</td>
@@ -35,19 +35,43 @@
                     {% endfor %}
                 </table>
             {% endif %}
-            {% if ongoing_requests %}
-                <h2>My Ongoing Requests</h2>
+            {% if assigned_requests %}
+                <h2>我被接的单</h2>
                 <table width="100%">
-                    {% for ongoing_request in ongoing_requests %}
+                    {% for assigned_request in assigned_requests %}
                         <tr>
-                            <td>{{ ongoing_request.item.name }}</td>
-                            <td>{{ ongoing_request.item.country }}</td>
+                            <td>{{ assigned_request.item.name }}</td>
+                            <td>{{ assigned_request.item.country }}</td>
+                            <td><a href="/request/complete/{{ assigned_request.id }}"><button type="submit">收货</button></a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+            {% if shipped_requests %}
+                <h2>我的货已被买到</h2>
+                <table width="100%">
+                    {% for shipped_request in shipped_requests %}
+                        <tr>
+                            <td>{{ shipped_request.item.name }}</td>
+                            <td>{{ shipped_request.item.country }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+            {% if delivered_requests %}
+                <h2>我的货已发</h2>
+                <table width="100%">
+                    {% for delivered_request in delivered_requests %}
+                        <tr>
+                            <td>{{ delivered_request.item.name }}</td>
+                            <td>{{ delivered_request.item.country }}</td>
+                            <td><a href="/request/complete/{{ delivered_request.id }}"><button type="submit">确认接货</button></a></td>
                         </tr>
                     {% endfor %}
                 </table>
             {% endif %}
             {% if completed_requests %}
-                <h2>My Completed Requests</h2>
+                <h2>海淘历史</h2>
                 <table width="100%">
                     {% for completed_request in completed_requests %}
                         <tr>
@@ -59,14 +83,49 @@
             {% endif %}
         </div>
         <div class="purchase">
-            {% if ongoing_purchases %}
+            {% if assigned_purchases %}
                 <h2>我正在淘的货</h2>
                 <table width="100%">
-                    {% for ongoing_purchase in ongoing_purchases %}
+                    {% for assigned_purchase in assigned_purchases %}
                         <tr>
-                            <td>{{ ongoing_purchase.item.name }}</td>
-                            <td>{{ ongoing_purchase.item.country }}</td>
-                            <td><a href="request/detail/{{ ongoing_purchase.id }}"><button type="submit">交货</button></a></td>
+                            <td>{{ assigned_purchase.item.name }}</td>
+                            <td>{{ assigned_purchase.item.country }}</td>
+                            <td><a href="/request/ship/{{ assigned_purchase.id }}"><button type="submit">我已买到</button></a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+            {% if shipped_purchases %}
+                <h2>我已寄出的货</h2>
+                <table width="100%">
+                    {% for shipped_purchase in shipped_purchases %}
+                        <tr>
+                            <td>{{ shipped_purchase.item.name }}</td>
+                            <td>{{ shipped_purchase.item.country }}</td>
+                            <td><a href="/request/deliver/{{ shipped_purchase.id }}"><button type="submit">交货</button></a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+            {% if delivered_purchases %}
+                <h2>我已交的货，等待买家确认</h2>
+                <table width="100%">
+                    {% for delivered_purchase in delivered_purchases %}
+                        <tr>
+                            <td>{{ delivered_purchase.item.name }}</td>
+                            <td>{{ delivered_purchase.item.country }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+            {% if completed_purchases %}
+                <h2>海带历史</h2>
+                <table width="100%">
+                    {% for completed_purchase in completed_purchases %}
+                        <tr>
+                            <td>{{ completed_purchase.item.name }}</td>
+                            <td>{{ completed_purchase.item.country }}</td>
+                            <td></td>
                         </tr>
                     {% endfor %}
                 </table>

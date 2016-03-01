@@ -1,7 +1,7 @@
 {% extends 'master.html' %}
 {% block primary %}
     <script>
-        function confirm_order(request_id) {
+        function take_order(request_id) {
             if (!document.getElementById("take_request").checked) {
                 alert("请确认接单");
                 return;
@@ -40,7 +40,7 @@
         <div class="confirm">
             <input type="checkbox" id="take_request" >我确认接下此单</input>
             <input type="hidden" id="name" value="{{ name }}" />
-            <button type="submit" onclick="confirm_order('{{ order_request.id }}')">确认</button>
+            <button type="submit" onclick="take_order('{{ order_request.id }}')">确认</button>
         </div>
 
     </div>

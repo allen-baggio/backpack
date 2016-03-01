@@ -6,6 +6,11 @@ import math
 
 
 def index(request):
+    """
+    Landing page for the website
+    :param request:
+    :return:
+    """
     session = request.session
     if session:
         name = session.get('name', None)
@@ -24,6 +29,11 @@ def index(request):
 
 
 def login(request):
+    """
+    User login
+    :param request:
+    :return:
+    """
     session = request.session
     if session:
         name = session.get('name', None)
@@ -37,6 +47,11 @@ def login(request):
 
 
 def logout(request):
+    """
+    User logout
+    :param request:
+    :return:
+    """
     session = request.session
     if session:
         session['name'] = None
@@ -45,6 +60,11 @@ def logout(request):
 
 
 def authenticate(request):
+    """
+    User authenticate
+    :param request:
+    :return:
+    """
     username = request.POST['username']
     password = request.POST['password']
     user = User.objects.raw("select email, name, password from home_user where email = %s", [username])
@@ -61,6 +81,11 @@ def authenticate(request):
 
 
 def register(request):
+    """
+    User sign up
+    :param request:
+    :return:
+    """
     email = request.POST['email']
     phone = request.POST['phone']
     password = request.POST['password']
@@ -72,6 +97,11 @@ def register(request):
 
 
 def search(request):
+    """
+    User search for existing request
+    :param request:
+    :return:
+    """
     keyword = request.GET.get('q', None)
     name = request.session['name']
     if keyword:

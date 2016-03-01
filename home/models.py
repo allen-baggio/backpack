@@ -43,7 +43,6 @@ class Item(models.Model):
     )
     type = models.CharField(choices=TYPE_ENUM)
     country = models.CharField(max_length=20)
-    #link = models.CharField(max_length=50)
 
 
 class Itinerary(models.Model):
