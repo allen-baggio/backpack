@@ -6,6 +6,7 @@ from . import views, account, request, itinerary
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     # account
+    url(r'^account/signup', views.singup, name='singup'),
     url(r'^account/login', views.login, name='login'),
     url(r'^account/logout', views.logout, name='logout'),
     url(r'^account/auth', views.authenticate, name='authenticate'),

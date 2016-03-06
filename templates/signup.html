@@ -1,0 +1,26 @@
+{% extends 'master.html' %}
+{% block primary %}
+    <div class="signup-form">
+        <form action="/account/reg" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="input-email">邮箱</label>
+                <input type="email" class="form-control" name="email" id="input-email" placeholder="邮箱地址">
+            </div>
+            <div class="form-group">
+                <label for="input-password">密码</label>
+                <input type="password" class="form-control" name="password" id="input-password" placeholder="密码">
+            </div>
+            <div class="form-group">
+                <label for="input-phone">电话</label>
+                <input type="text" class="form-control" name="phone" id="input-phone" placeholder="电话号码">
+            </div>
+            <div class="form-group">
+                <label for="input-name">姓名</label>
+                <input type="text" class="form-control" name="name" id="input-name" placeholder="姓名">
+            </div>
+            <button type="submit" class="btn btn-default">注册</button>
+            <a class="btn btn-default" href="/">取消</a>
+        </form>
+    </div>
+{% endblock %}

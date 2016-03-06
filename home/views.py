@@ -45,6 +45,18 @@ def login(request):
     })
     return HttpResponse(template.render(context))
 
+def singup(request):
+    session = request.session
+    if session:
+        name = session.get('name', None)
+        username = session.get('username', None)
+    template = loader.get_template('signup.html')
+    context = RequestContext(request, {
+        'name': name,
+        'username': username
+    })
+    return HttpResponse(template.render(context))
+
 
 def logout(request):
     """

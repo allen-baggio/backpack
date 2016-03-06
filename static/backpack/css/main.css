@@ -1,15 +1,3 @@
-.nav a {
-  color: #5a5a5a;
-  font-size: 11px;
-  font-weight: bold;
-  padding: 14px 10px;
-  text-transform: uppercase;
-}
-
-.nav li {
-  display: inline;
-}
-
 .jumbotron {
   background-image:url('http://goo.gl/04j7Nn');
   height: 500px;
@@ -61,4 +49,45 @@
 
 .learn-more a {
   color: #00b0ff;
+}
+
+.origou-logo {
+    margin: 10px;
+}
+
+.origou-logo > li {
+    display: inline-block;
+}
+
+.origou-logo > li > a > img {
+    width: 160px;
+    height: 60px;
+}
+
+.login-panel {
+    font-size: 15px;
+}
+
+.login-panel > li > a {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px;
+    text-transform: uppercase;
+    text-decoration:none;
+}
+
+.login-panel > li {
+    display: inline;
+}
+
+.login-form,
+.signup-form {
+    margin: auto;
+    width: 30%;
+    position: relative;
+    top:60px;
+}
+
+.account-dropdown {
+    margin: 15px 10px 10px;
 }

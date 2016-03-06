@@ -3,33 +3,48 @@
 <html>
     <head>
         <link href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/shift.css" rel="stylesheet">
-        <link rel="stylesheet" href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/bootstrap.css">
+
+{#        TODO: put these files on local or some CDN#}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
         <link rel="stylesheet" type="text/css" href="{% static 'backpack/css/main.css' %}">
     </head>
 
     <body>
         <div class="nav">
-            <li class="container">
-                <ul class="pull-left">
-                    <li><a href="/#"><div><img src="{% static 'backpack/img/logo.jpg' %}" height="100" width="240"></div></a></li>
-                    <li>
-                        <form method="get" action="/search">
-                        <input id="quick-search" name="q" type="text" autocomplete="off" placeholder="搜索" class="typeahead">
-                        </form>
-                    </li>
+            <div class="container">
+                <ul class="pull-left origou-logo">
+                    <li><a href="/#"><img src="{% static 'backpack/img/logo.jpg' %}"></a></li>
+{#                    <li>#}
+{#                        <form method="get" action="/search">#}
+{#                        <input id="quick-search" name="q" type="text" autocomplete="off" placeholder="搜索" class="typeahead">#}
+{#                        </form>#}
+{#                    </li>#}
                 </ul>
-                <ul class="pull-right">
+                <ul class="pull-right login-panel">
                     {% if name %}
-                        <li>欢迎 {{ name }}</li>
-                        <li><a href="/account/profile">我的账户</a></li>
-                        <li><a href="/account/logout" class="login">登出</a></li>
+                        <div class="account-dropdown btn-group">
+                            <button type="button" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            欢迎 {{ name }} <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="/account/profile">我的账户</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/account/logout">登出</a></li>
+                            </ul>
+                        </div>
+{#                        <li>欢迎 {{ name }}</li>#}
+{#                        <li><a href="/account/profile">我的账户</a></li>#}
+{#                        <li><a href="/account/logout" class="login">登出</a></li>#}
                     {% else %}
-                        <li><a href="/account/login">登录</a></li>
-                        <li><a href="/account/login">注册</a></li>
-                        <li><a href="#">帮助</a></li>
+                        <li><a href="/account/login" class="btn btn-primary btn-sm">登录</a></li>
+                        <li><a href="/account/signup" class="btn btn-success btn-sm">注册</a></li>
+                        <li><a href="#" class="btn btn-info btn-sm">帮助</a></li>
                     {% endif %}
                 </ul>
-            </li>
+            </div>
         </div>
 
         {% block primary %}{% endblock %}
