@@ -3,6 +3,26 @@
     <div class="signup-form">
         <form action="/account/reg" method="POST">
             {% csrf_token %}
+            {% if email_error %}
+                <div class="alert alert-danger" role="alert">
+                    请输入您的有效邮箱
+                </div>
+            {% endif %}
+            {% if phone_error %}
+                <div class="alert alert-danger" role="alert">
+                    请输入您的有效手机号
+                </div>
+            {% endif %}
+            {% if password_error %}
+                <div class="alert alert-danger" role="alert">
+                   为了您的安全，请输入六位以上的密码
+                </div>
+            {% endif %}
+            {% if dulpicate_error %}
+                <div class="alert alert-danger" role="alert">
+                    您的手机或邮箱已经被注册
+                </div>
+            {% endif %}
             <div class="form-group">
                 <label for="input-email">邮箱</label>
                 <input type="email" class="form-control" name="email" id="input-email" placeholder="邮箱地址">

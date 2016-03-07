@@ -1,8 +1,10 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from home.models import Item, Request, User, Itinerary
+from django.db.models import Q
+
 import datetime
-import math
+import re
 
 
 def index(request):
@@ -45,7 +47,8 @@ def login(request):
     })
     return HttpResponse(template.render(context))
 
-def singup(request):
+
+def signup(request):
     session = request.session
     if session:
         name = session.get('name', None)
@@ -102,9 +105,34 @@ def register(request):
     phone = request.POST['phone']
     password = request.POST['password']
     name = request.POST['name']
+    template = loader.get_template('signup.html')
+    email_match = re.match(r'([^@]+)@([a-z0-9]+)\.([a-z]+)', email)
+    if not email_match:
+        context = RequestContext(request, {
+            'email_error': True
+        })
+        return HttpResponse(template.render(context))
+    phone_match = re.match(r'[0-9].', phone)
+    if not phone_match:
+        context = RequestContext(request, {
+            'phone_error': True
+        })
+        return HttpResponse(template.render(context))
+    if len(password) < 6:
+        context = RequestContext(request, {
+            'password_error': True
+        })
+        return HttpResponse(template.render(context))
+    existing_user = User.objects.filter(Q(email=email) | Q(phone=phone))
+    if existing_user:
+        context = RequestContext(request, {
+            'dulpicate_error': True
+        })
+        return HttpResponse(template.render(context))
     user = User(email=email, phone=phone, password=password, name=name)
     user.save()
-    request.session['username'] = name
+    request.session['username'] = email
+    request.session['name'] = name
     return HttpResponseRedirect('/')
 
 
