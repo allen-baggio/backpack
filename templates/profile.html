@@ -16,120 +16,105 @@
 
         }
     </script>
-    <div class="jumbotron">
-        <div class="orders">
-            {% if open_requests %}
-                <p>欢迎来到 {{ name }} 的账户</p>
-                <h2>我的下单</h2>
-                <table width="100%" id="open">
-                    <tr>
-                        <td>货物名称</td>
-                        <td>源购地</td>
-                    </tr>
-                    {% for open_request in open_requests %}
-                        <tr>
-                            <td>{{ open_request.item.name }}</td>
-                            <td>{{ open_request.item.country }}</td>
-                            <td><button onclick="cancel({{ forloop.counter0 }}, '{{ open_request.id }}')"> 取消我的订单 </button></td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            {% endif %}
-            {% if assigned_requests %}
-                <h2>我被接的单</h2>
-                <table width="100%">
-                    {% for assigned_request in assigned_requests %}
-                        <tr>
-                            <td>{{ assigned_request.item.name }}</td>
-                            <td>{{ assigned_request.item.country }}</td>
-                            <td><a href="/request/complete/{{ assigned_request.id }}"><button type="submit">收货</button></a></td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            {% endif %}
-            {% if shipped_requests %}
-                <h2>我的货已被买到</h2>
-                <table width="100%">
-                    {% for shipped_request in shipped_requests %}
-                        <tr>
-                            <td>{{ shipped_request.item.name }}</td>
-                            <td>{{ shipped_request.item.country }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            {% endif %}
-            {% if delivered_requests %}
-                <h2>我的货已发</h2>
-                <table width="100%">
-                    {% for delivered_request in delivered_requests %}
-                        <tr>
-                            <td>{{ delivered_request.item.name }}</td>
-                            <td>{{ delivered_request.item.country }}</td>
-                            <td><a href="/request/complete/{{ delivered_request.id }}"><button type="submit">确认接货</button></a></td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            {% endif %}
-            {% if completed_requests %}
-                <h2>海淘历史</h2>
-                <table width="100%">
-                    {% for completed_request in completed_requests %}
-                        <tr>
-                            <td>{{ completed_request.item.name }}</td>
-                            <td>{{ completed_request.item.country }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            {% endif %}
-        </div>
-        <div class="purchase">
-            {% if assigned_purchases %}
-                <h2>我正在淘的货</h2>
-                <table width="100%">
-                    {% for assigned_purchase in assigned_purchases %}
-                        <tr>
-                            <td>{{ assigned_purchase.item.name }}</td>
-                            <td>{{ assigned_purchase.item.country }}</td>
-                            <td><a href="/request/ship/{{ assigned_purchase.id }}"><button type="submit">我已买到</button></a></td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            {% endif %}
-            {% if shipped_purchases %}
-                <h2>我已寄出的货</h2>
-                <table width="100%">
-                    {% for shipped_purchase in shipped_purchases %}
-                        <tr>
-                            <td>{{ shipped_purchase.item.name }}</td>
-                            <td>{{ shipped_purchase.item.country }}</td>
-                            <td><a href="/request/deliver/{{ shipped_purchase.id }}"><button type="submit">交货</button></a></td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            {% endif %}
-            {% if delivered_purchases %}
-                <h2>我已交的货，等待买家确认</h2>
-                <table width="100%">
-                    {% for delivered_purchase in delivered_purchases %}
-                        <tr>
-                            <td>{{ delivered_purchase.item.name }}</td>
-                            <td>{{ delivered_purchase.item.country }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            {% endif %}
-            {% if completed_purchases %}
-                <h2>海带历史</h2>
-                <table width="100%">
-                    {% for completed_purchase in completed_purchases %}
-                        <tr>
-                            <td>{{ completed_purchase.item.name }}</td>
-                            <td>{{ completed_purchase.item.country }}</td>
-                            <td></td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            {% endif %}
+    <div class="my-account">
+        <div class="container">
+            <h2>欢迎来到 {{ name }} 的账户</h2>
+            <ul class="nav nav-pills ">
+                <li class="active">
+                    <a data-toggle="pill" href="?startIndex=0#requests">我的购物清单</a>
+                </li>
+                <li><a data-toggle="pill" href="?startIndex=0#purchases">我的发货清单</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="requests" class="tab-pane fade in active">
+                    <div class="row requests-detail">
+                        <div class="col-sm-12">
+
+                        {% if requests %}
+                            {% for request in requests %}
+                                <div class="row request-box">
+                                    <div class="col-md-12">
+                                        <div class="well well-lg">
+                                            <h3 class="text-primary"><span class="label label-danger pull-right">{{ request.item.country }}</span> {{ request.item.name }} </h3>
+                                            <p class="text-primary">{{ request.status }}</p>
+                                            <br/>
+                                            {% if request.status == 'Open' %}
+                                                <button class="text-danger pull-right" onclick="cancel({{ forloop.counter0 }}, '{{ request.id }}')"> 取消我的订单 </button>
+                                                <br/>
+                                            {% elif request.status == 'Delivered' %}
+                                                <a href="/request/complete/{{ request.id }}"><button class="text-danger pull-right" type="submit">确认接货</button></a>
+                                                <br/>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <div class="row page">
+                                <div class="col-sm-12 page-button">
+                                    <form>
+                                    <div class="row">
+                                        {% for i in requests_page_size %}
+                                            <div class="col-xs-3 text-center">
+                                                <a href="?startIndex={% widthratio forloop.counter0 1 10 %} ">
+                                                    <button type="button" class="btn btn-warning btn-lg" style="text-align:center;"> {{ forloop.counter }} </button>
+                                                </a>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        {% else %}
+                            <p>暂时没有您的记录</p>
+                        {% endif %}
+                        </div>
+                    </div>
+            </div>
+                <div id="purchases" class="tab-pane fade">
+                    <div class="row purchases-detail">
+                        <div class="col-sm-12">
+                            {% if purchases %}
+                                {% for purchase in purchases %}
+                                    <div class="row purchase-box">
+                                        <div class="col-md-12">
+                                            <div class="well well-lg">
+                                                <h3 class="text-primary"><span class="label label-danger pull-right">{{ purchase.item.country }}</span> {{ purchase.item.name }} </h3>
+                                                <p class="text-primary">{{ purchase.status }}</p>
+                                                <br/>
+                                                {% if purchase.status == 'Assigned' %}
+                                                    <a href="/request/ship/{{ purchase.id }}"><button class="text-danger pull-right" type="submit">我已买到</button></a>
+                                                    <br/>
+                                                {% elif purchase.status == 'Shipped' %}
+                                                    <a href="/request/deliver/{{ purchase.id }}"><button class="text-danger pull-right" type="submit">交货</button></a>
+                                                    <br/>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                <div class="row page">
+                                    <div class="col-sm-12 page-button">
+                                        <form>
+                                        <div class="row">
+                                            {% for i in purchases_page_size %}
+                                                <div class="col-xs-3 text-center">
+                                                    <a href="?startIndex={% widthratio forloop.counter0 1 10 %} ">
+                                                        <button type="button" class="btn btn-warning btn-lg" style="text-align:center;"> {{ forloop.counter }} </button>
+                                                    </a>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <p>暂时没有您的记录</p>
+                            {% endif %}
+                            </div>
+                        </div>
+                </div>
+            </div>
         </div>
     </div>
 

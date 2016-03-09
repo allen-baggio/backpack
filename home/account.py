@@ -11,32 +11,21 @@ def profile(request):
     """
     username = request.session.get('username', None)
     name = request.session.get('name', None)
+    index = int(request.GET.get('startIndex', 0))
     if username:
         # Requests
-        open_requests = Request.objects.filter(buyer_username=username, status='Ordered').order_by('-created_time')
-        assigned_requests = Request.objects.filter(buyer_username=username,status='Assigned').order_by('-created_time')
-        shipped_requests = Request.objects.filter(buyer_username=username, status='Shipped').order_by('-created_time')
-        delivered_requests = Request.objects.filter(buyer_username=username, status='Delivered').order_by('-created_time')
-        completed_requests = Request.objects.filter(buyer_username=username, status='Completed').order_by('-created_time')
+        order_requests = Request.objects.filter(buyer_username=username).order_by('-created_time')
 
         # Purchases
-        assigned_purchases = Request.objects.filter(provider_username=username, status='Assigned').order_by('-created_time')
-        shipped_purchases = Request.objects.filter(provider_username=username, status='Shippped').order_by('-created_time')
-        delivered_purchases = Request.objects.filter(provider_username=username, status='Delivered').order_by('-created_time')
-        completed_purchases = Request.objects.filter(provider_username=username, status='Completed').order_by('-created_time')
+        order_purchases = Request.objects.filter(provider_username=username).order_by('-created_time')
 
         template = loader.get_template('profile.html')
         context = RequestContext(request, {
             'name': name,
-            'open_requests': open_requests,
-            'assigned_requests': assigned_requests,
-            'shipped_requests': shipped_requests,
-            'delivered_requests': delivered_requests,
-            'completed_requests': completed_requests,
-            'assigned_purchases': assigned_purchases,
-            'shipped_purchases': shipped_purchases,
-            'delivered_purchases': delivered_purchases,
-            'completed_purchases': completed_purchases
+            'requests': order_requests[index: index + 10],
+            'requests_page_size': range(0, len(order_requests)/10 + 1),
+            'purchases': order_purchases[index: index + 10],
+            'purchases_page_size': range(0, len(order_purchases)/10 + 1)
         })
         return HttpResponse(template.render(context))
     else:
