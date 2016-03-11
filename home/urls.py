@@ -4,14 +4,17 @@ from django.conf.urls import url
 from . import views, account, request, itinerary
 
 urlpatterns = [
+    # index
     url(r'^$', views.index, name='index'),
+    url(r'^signup', views.signup, name='signup'),
+    url(r'^login', views.login, name='login'),
+    url(r'^logout', views.logout, name='logout'),
+    url(r'^auth', views.authenticate, name='authenticate'),
+    url(r'^reg', views.register, name='register'),
+
     # account
-    url(r'^account/signup', views.signup, name='signup'),
-    url(r'^account/login', views.login, name='login'),
-    url(r'^account/logout', views.logout, name='logout'),
-    url(r'^account/auth', views.authenticate, name='authenticate'),
-    url(r'^account/reg', views.register, name='register'),
-    url(r'^account/profile', account.profile, name='profile'),
+    url(r'^account/landing', account.landing, name='landing'),
+    url(r'^account/orders', account.orders, name='orders'),
 
     # request
     url(r'^request/load', request.load_request, name='load_request'),

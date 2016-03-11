@@ -1,7 +1,7 @@
 {% extends 'master.html' %}
 {% block primary %}
     <div class="signup-form">
-        <form action="/account/reg" method="POST">
+        <form action="/reg" method="POST">
             {% csrf_token %}
             {% if email_error %}
                 <div class="alert alert-danger" role="alert">

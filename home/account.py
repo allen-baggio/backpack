@@ -3,7 +3,20 @@ from django.template import RequestContext, loader
 from home.models import Item, Request, User
 
 
-def profile(request):
+def landing(request):
+    username = request.session.get('username', None)
+    name = request.session.get('name', None)
+    if username:
+        template = loader.get_template('account/landing.html')
+        context = RequestContext(request, {
+            'name': name,
+        })
+        return HttpResponse(template.render(context))
+    else:
+        return HttpResponseRedirect('/login')
+
+
+def orders(request):
     """
     List all status of orders both as a customer and a traveller of the user
     :param request:
@@ -19,7 +32,7 @@ def profile(request):
         # Purchases
         order_purchases = Request.objects.filter(provider_username=username).order_by('-created_time')
 
-        template = loader.get_template('profile.html')
+        template = loader.get_template('account/orders.html')
         context = RequestContext(request, {
             'name': name,
             'requests': order_requests[index: index + 10],

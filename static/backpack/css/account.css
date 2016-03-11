@@ -1,5 +1,13 @@
-.my-account h2{
+.my-order h2 {
     text-align: center;
+}
+
+.my-account {
+    padding-left: 40%;
+}
+
+.my-account-btn{
+    margin-top: 100px;
 }
 
 .nav-tabs > li, .nav-pills > li {

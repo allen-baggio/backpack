@@ -1,7 +1,7 @@
 {% extends 'master.html' %}
 {% block primary %}
     <div class="login-form">
-        <form action="/account/auth" method="POST">
+        <form action="/auth" method="POST">
             {% csrf_token %}
             {% if error %}
                 <div class="alert alert-danger" role="alert">
