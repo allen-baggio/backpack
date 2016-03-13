@@ -2,8 +2,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/shift.css" rel="stylesheet">
-
 {#        TODO: put these files on local or some CDN#}
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
         <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
@@ -11,6 +9,7 @@
 
         <link rel="stylesheet" type="text/css" href="{% static 'backpack/css/main.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'backpack/css/account.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'backpack/css/footer-basic-centered.css' %}">
     </head>
 
     <body>
@@ -42,13 +41,25 @@
                     {% else %}
                         <li><a href="/login" class="btn btn-primary btn-sm">登录</a></li>
                         <li><a href="/signup" class="btn btn-success btn-sm">注册</a></li>
-                        <li><a href="#" class="btn btn-info btn-sm">帮助</a></li>
+                        <li><a href="/faq" class="btn btn-info btn-sm">帮助</a></li>
                     {% endif %}
                 </ul>
             </div>
         </div>
 
         {% block primary %}{% endblock %}
+
+		<footer class="footer-basic-centered">
+			<p class="footer-company-motto">The company motto.</p>
+			<p class="footer-links">
+				<a href="/index">首页</a>
+				·
+				<a href="/faq">常见问题</a>
+				·
+				<a href="#">联系我们</a>
+			</p>
+			<p class="footer-company-name">源地购 &copy; 2016</p>
+		</footer>
 
   </body>
 </html>

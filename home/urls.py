@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^logout', views.logout, name='logout'),
     url(r'^auth', views.authenticate, name='authenticate'),
     url(r'^reg', views.register, name='register'),
+    url(r'^faq', views.faq, name='faq'),
 
     # account
     url(r'^account/landing', account.landing, name='landing'),
