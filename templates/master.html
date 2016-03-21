@@ -2,14 +2,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-{#        TODO: put these files on local or some CDN#}
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-        <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{% static 'common/bootstrap/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'common/font-awesome/css/font-awesome.min.css' %}">
+        <script src="{% static 'common/jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'common/bootstrap/js/bootstrap.min.js' %}"></script>
 
         <link rel="stylesheet" type="text/css" href="{% static 'backpack/css/main.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'backpack/css/account.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'backpack/css/footer-basic-centered.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'backpack/css/product.css' %}">
     </head>
 
     <body>
@@ -49,17 +50,18 @@
 
         {% block primary %}{% endblock %}
 
-		<footer class="footer-basic-centered">
-			<p class="footer-company-motto">The company motto.</p>
-			<p class="footer-links">
-				<a href="/index">首页</a>
-				·
-				<a href="/faq">常见问题</a>
-				·
-				<a href="#">联系我们</a>
-			</p>
-			<p class="footer-company-name">源地购 &copy; 2016</p>
-		</footer>
-
+        {% block footer %}
+            <footer class="footer-basic-centered">
+                <p class="footer-company-motto">The company motto.</p>
+                <p class="footer-links">
+                    <a href="/index">首页</a>
+                    ·
+                    <a href="/faq">常见问题</a>
+                    ·
+                    <a href="#">联系我们</a>
+                </p>
+                <p class="footer-company-name">源地购 &copy; 2016</p>
+            </footer>
+        {% endblock %}
   </body>
 </html>

@@ -1,3 +1,7 @@
+.container {
+    margin: auto;
+}
+
 .jumbotron {
   background-image:url('http://goo.gl/04j7Nn');
   height: 500px;
@@ -61,10 +65,12 @@
 
 .origou-logo > li > a > img {
     width: 160px;
-    height: 60px;
+    height: 62px;
 }
 
 .login-panel {
+    height: 62px;
+    margin: 10px;
     font-size: 15px;
 }
 
@@ -89,7 +95,7 @@
 }
 
 .account-dropdown {
-    margin: 15px 10px 10px;
+    padding: 7.5px;
 }
 
 .dropdown-menu a {
@@ -104,4 +110,6 @@
     display: block;
 }
 
-.dropdown-menu a:hover {background-color: #f1f1f1}
+.dropdown-menu a:hover {
+    background-color: #f1f1f1;
+}

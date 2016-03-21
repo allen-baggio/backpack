@@ -1,0 +1,23 @@
+{% extends 'master.html' %}
+{% block primary %}
+    <div class="row container product-detail-container">
+        <div class="col-md-6">
+            <img class="product-image" src="{{ product.imageUrl }}">
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <h4>{{ product.title }}</h4>
+                <div>
+                    <i class="fa fa-usd"></i>{{ product.price }}
+                </div>
+                <div>
+                    <i class="fa fa-anchor"></i>{{ product.countryName }}
+                </div>
+                <p>{{ product.description }}</p>
+            </div>
+            <div class="row">
+                <button class="btn btn-primary">Buy Now</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

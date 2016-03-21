@@ -1,5 +1,5 @@
 
-from django.conf.urls import url
+from django.conf.urls import include, url
 
 from . import views, account, request, itinerary
 
@@ -31,6 +31,5 @@ urlpatterns = [
 
     # itinerary
     url(r'^itinerary/load', itinerary.load_itinerary, name='load_itinerary'),
-    url(r'^itinerary/create', itinerary.create_itinerary, name='create_itinerary'),
-
+    url(r'^itinerary/create', itinerary.create_itinerary, name='create_itinerary')
 ]
