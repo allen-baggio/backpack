@@ -1,10 +1,10 @@
 from django.conf.urls import include, url
 
-from .views import product_detail_view
+from .views import product_detail_view, ProductListView
 
 urlpatterns = [
 
-
+    url(r'^$', ProductListView.as_view(), name='product_list'),
     url(r'^(?P<id>\d+)/$', product_detail_view, name='product_detail'),
 
     # # index

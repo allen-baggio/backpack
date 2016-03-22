@@ -1,10 +1,24 @@
-{#<!DOCTYPE html>#}
-{#<html lang="en">#}
-{#<head>#}
-{#    <meta charset="UTF-8">#}
-{#    <title>Title</title>#}
-{#</head>#}
-{#<body>#}
-{##}
-{#</body>#}
-{#</html>#}
+{% extends 'master.html' %}
+{% block primary %}}
+    <div class="row container product-list-container">
+        {% for product in object_list %}
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{ product.title }}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-6">
+                            <img class="product-image" src="{{ product.imageUrl }}">
+                        </div>
+                        <div class="col-md-6">
+                            <div>{{ product.price }}</div>
+                            <div>{{ product.description }}</div>
+                            <button class="btn btn-success">购买</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

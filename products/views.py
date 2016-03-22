@@ -1,20 +1,24 @@
 from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 
 from .models import Product
 
+
 # from django.views.generic.list import ListView
 # from django.shortcuts import render
 
 # Create your views here.
-import random
+class ProductListView(ListView):
+    model = Product
 
 
 class ProductDetailView(DetailView):
     model = Product
 
-#     def get_context_data(self, *args, **kwargs):
+
+# def get_context_data(self, *args, **kwargs):
 #         context = super(ProductDetailView, self).get_context_data(*args, **kwargs)
 #         instance = self.get_object()
 #         # order_by("-title")
