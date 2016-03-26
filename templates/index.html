@@ -8,61 +8,61 @@
             <a href="#">了解我们如何运作</a>
         </div>
     </div>
-{#    <div class="learn-more">#}
-{#        <div class="container">#}
-{#            <div class="row">#}
-{#                <div class="col-md-4">#}
-{#                    <h3>求代购</h3>#}
-{#                    <td>我想请人游购 <a href="request/load" >点击这里</a></td>#}
-{#                </div>#}
-{#                <div class="col-md-4">#}
-{#                    <h3>发行程</h3>#}
-{#                    <td>我想为他人游购 <a href="itinerary/load" >点击这里</a></td>#}
-{#                </div>#}
-{#                <div class="col-md-4">#}
-{#                    <h3>已有热门路线</h3>#}
-{#                    {% if existing_requests or existing_itineraries %}#}
-{#                        <table width="100%">#}
-{#                            {% if existing_requests %}#}
-{#                                <tr>#}
-{#                                    <td>货物名称</td>#}
-{#                                    <td>货源地</td>#}
-{#                                    <td></td>#}
-{#                                </tr>#}
-{#                                {% for existing_request in existing_requests %}#}
-{#                                    <tr>#}
-{#                                        <td>{{ existing_request.item.name }}</td>#}
-{#                                        <td>{{ existing_request.item.country }}</td>#}
-{#                                        <td><a href="/request/detail/{{ existing_request.id }}"><button type="submit">我想帮忙</button></a></td>#}
-{#                                    </tr>#}
-{#                                {% endfor %}#}
-{#                            <tr><td colspan="3">*****************</td></tr>#}
-{#                            {% endif %}#}
-{#                            {% if existing_itineraries %}#}
-{##}
-{#                                <tr>#}
-{#                                    <td>海淘地区</td>#}
-{#                                    <td>预计送货日期</td>#}
-{#                                    <td></td>#}
-{#                                </tr>#}
-{##}
-{#                                {% for existing_itinerary in existing_itineraries %}#}
-{#                                    <tr>#}
-{#                                        <td>{{ existing_itinerary.country }}</td>#}
-{#                                        <td>{{ existing_itinerary.return_date }}</td>#}
-{#                                        <td><a href="request/load"><button type="submit">我有需求</button></a></td>#}
-{#                                    </tr>#}
-{#                                {% endfor %}#}
-{#                            {% endif %}#}
-{#                        </table>#}
-{##}
-{#                    {% else %}#}
-{#                        <p>暂时所有的请求都已经被处理了</p>#}
-{#                    {% endif %}#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
+    <div class="learn-more">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>求代购</h3>
+                    <td>我想请人游购 <a href="request/load" >点击这里</a></td>
+                </div>
+                <div class="col-md-4">
+                    <h3>发行程</h3>
+                    <td>我想为他人游购 <a href="itinerary/load" >点击这里</a></td>
+                </div>
+                <div class="col-md-4">
+                    <h3>已有热门路线</h3>
+                    {% if existing_requests or existing_itineraries %}
+                        <table width="100%">
+                            {% if existing_requests %}
+                                <tr>
+                                    <td>货物名称</td>
+                                    <td>货源地</td>
+                                    <td></td>
+                                </tr>
+                                {% for existing_request in existing_requests %}
+                                    <tr>
+                                        <td>{{ existing_request.item.name }}</td>
+                                        <td>{{ existing_request.item.country }}</td>
+                                        <td><a href="/request/detail/{{ existing_request.id }}"><button type="submit">我想帮忙</button></a></td>
+                                    </tr>
+                                {% endfor %}
+                            <tr><td colspan="3">*****************</td></tr>
+                            {% endif %}
+                            {% if existing_itineraries %}
+
+                                <tr>
+                                    <td>海淘地区</td>
+                                    <td>预计送货日期</td>
+                                    <td></td>
+                                </tr>
+
+                                {% for existing_itinerary in existing_itineraries %}
+                                    <tr>
+                                        <td>{{ existing_itinerary.country }}</td>
+                                        <td>{{ existing_itinerary.return_date }}</td>
+                                        <td><a href="request/load"><button type="submit">我有需求</button></a></td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                        </table>
+
+                    {% else %}
+                        <p>暂时所有的请求都已经被处理了</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="neighborhood-guides col-md-12 col-sm-12">
         <div class="container">
