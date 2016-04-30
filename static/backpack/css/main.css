@@ -1,3 +1,13 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin: 0 0 180px;
+}
+
+
 .container {
     margin: auto;
 }
@@ -91,7 +101,9 @@
     margin: auto;
     width: 30%;
     position: relative;
-    top:60px;
+    top: 60px;
+    margin-bottom: 20%;
+
 }
 
 .account-dropdown {

@@ -6,7 +6,9 @@
 	text-align: center;
 	font: normal 18px sans-serif;
 	padding: 45px;
-	margin-top: 80px;
+	position: absolute;
+	height: 180px;
+	bottom: -180px;
 }
 
 .footer-basic-centered .footer-company-motto{
@@ -36,7 +38,7 @@
 }
 
 /* If you don't want the footer to be responsive, remove these media queries */
-
+/*
 @media (max-width: 600px) {
 
 	.footer-basic-centered{
@@ -60,3 +62,4 @@
 		line-height: 1.8;
 	}
 }
+*/

@@ -159,6 +159,7 @@ def search(request):
     })
     return HttpResponse(template.render(context))
 
+
 def faq(request):
     template = loader.get_template('faq.html')
     return HttpResponse(template.render())
