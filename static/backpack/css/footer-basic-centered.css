@@ -5,10 +5,10 @@
 	width: 100%;
 	text-align: center;
 	font: normal 18px sans-serif;
-	padding: 45px;
+	padding: 20px;
 	position: absolute;
-	height: 180px;
-	bottom: -180px;
+	height: 160px;
+	bottom: -160px;
 }
 
 .footer-basic-centered .footer-company-motto{
@@ -27,7 +27,7 @@
 	list-style: none;
 	font-weight: bold;
 	color:  #ffffff;
-	padding: 35px 0 23px;
+	padding: 20px 0 10px;
 	margin: 0;
 }
 
