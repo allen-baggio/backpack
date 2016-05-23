@@ -3,15 +3,19 @@ from django.views.generic.list import ListView
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 
-from .models import Product
+from .models import Product, Country
 
 
-# from django.views.generic.list import ListView
-# from django.shortcuts import render
-
-# Create your views here.
 class ProductListView(ListView):
     model = Product
+
+    def get_queryset(self):
+        countryId = self.request.GET.get("countryId")
+        print countryId
+        if countryId:
+            return Product.objects.filter(countryId_id=countryId)
+        else:
+            return Product.objects.filter()
 
 
 class ProductDetailView(DetailView):
@@ -41,3 +45,7 @@ def product_detail_view(request, id):
         "product": product_instance
     }
     return render(request, template, context)
+
+
+class CountryListView(ListView):
+    model = Country

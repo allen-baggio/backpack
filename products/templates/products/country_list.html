@@ -1,0 +1,19 @@
+{% extends 'master.html' %}
+{% block primary %}}
+    <div class="row container product-list-container">
+        {% for country in object_list %}
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{ country.name }}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <a href="/products?countryId={{ country.id }}"><img class="country-image" src="{{ country.imageUrl }}"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
